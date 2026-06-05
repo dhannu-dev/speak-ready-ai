@@ -2,9 +2,9 @@
   "name": "backend",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
-    "dev": "node --watch index.js",
+    "dev": "nodemon scr/server.js",
     "start": "node index.js",
     "test": "echo \"No backend tests configured yet\" && exit 0"
   },
@@ -15,6 +15,10 @@
   "dependencies": {
     "cors": "^2.8.6",
     "dotenv": "^17.4.2",
-    "express": "^5.2.1"
+    "express": "^5.2.1",
+    "mongoose": "^9.6.3"
+  },
+  "devDependencies": {
+    "prettier": "^3.8.3"
   }
 }

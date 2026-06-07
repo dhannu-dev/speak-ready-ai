@@ -61,6 +61,262 @@ should return:
 }
 ```
 
+## MongoDB Models and Model Structure
+
+Phase 1 MVP ke liye sirf ye 2 main models required hain:
+
+```text
+backend/src/models/
+  user.model.js
+  practiceAttempt.model.js
+```
+
+`Mistake`, `Scores`, aur `Feedback` ke separate models banane ki zarurat nahi
+hai. Ye `PracticeAttempt` ke andar embedded subdocuments rahenge, kyunki inka
+use hamesha ek practice attempt ke saath hi hoga.
+
+### 1. User Model
+
+File:
+
+```text
+backend/src/models/user.model.js
+```
+
+Purpose:
+
+- Signup aur login data store karna
+- Har practice attempt ko ek user se connect karna
+- Password ko plain text me kabhi store nahi karna
+
+Recommended structure:
+
+```js
+{
+  name: {
+    type: String,
+    required: true,
+    trim: true,
+    minlength: 2,
+    maxlength: 50
+  },
+  email: {
+    type: String,
+    required: true,
+    unique: true,
+    lowercase: true,
+    trim: true
+  },
+  passwordHash: {
+    type: String,
+    required: true,
+    select: false
+  },
+  createdAt: Date,
+  updatedAt: Date
+}
+```
+
+Mongoose schema options:
+
+```js
+{
+  timestamps: true
+}
+```
+
+Important rules:
+
+1. Email par unique index hona chahiye.
+2. Email save karne se pehle lowercase aur trim karo.
+3. Client se aane wala raw password model me save mat karo.
+4. Password ko bcrypt se hash karke `passwordHash` me save karo.
+5. API response me `passwordHash` kabhi return mat karo.
+6. Login ke time password verify karne ke liye explicitly
+   `.select("+passwordHash")` use karo.
+
+### 2. PracticeAttempt Model
+
+File:
+
+```text
+backend/src/models/practiceAttempt.model.js
+```
+
+Purpose:
+
+- User ka original English answer save karna
+- Gemini ka complete structured feedback save karna
+- Dashboard aur history pages ke liye previous attempts fetch karna
+
+Recommended structure:
+
+```js
+{
+  userId: {
+    type: ObjectId,
+    ref: "User",
+    required: true,
+    index: true
+  },
+  mode: {
+    type: String,
+    enum: ["free", "guided"],
+    required: true
+  },
+  prompt: {
+    type: String,
+    trim: true,
+    maxlength: 300,
+    default: ""
+  },
+  originalText: {
+    type: String,
+    required: true,
+    trim: true,
+    minlength: 10,
+    maxlength: 5000
+  },
+  feedback: {
+    correctedText: {
+      type: String,
+      required: true
+    },
+    summaryHindi: {
+      type: String,
+      required: true
+    },
+    mistakes: [
+      {
+        wrong: {
+          type: String,
+          required: true
+        },
+        correct: {
+          type: String,
+          required: true
+        },
+        explanationHindi: {
+          type: String,
+          required: true
+        }
+      }
+    ],
+    scores: {
+      grammar: {
+        type: Number,
+        required: true,
+        min: 0,
+        max: 10
+      },
+      clarity: {
+        type: Number,
+        required: true,
+        min: 0,
+        max: 10
+      },
+      vocabulary: {
+        type: Number,
+        required: true,
+        min: 0,
+        max: 10
+      },
+      overall: {
+        type: Number,
+        required: true,
+        min: 0,
+        max: 10
+      }
+    },
+    level: {
+      type: String,
+      enum: ["Beginner", "Intermediate", "Advanced"],
+      required: true
+    },
+    weakAreas: [
+      {
+        type: String,
+        trim: true
+      }
+    ],
+    personalizedExercises: [
+      {
+        type: String,
+        trim: true
+      }
+    ],
+    motivationHindi: {
+      type: String,
+      required: true
+    }
+  },
+  createdAt: Date,
+  updatedAt: Date
+}
+```
+
+Mongoose schema options:
+
+```js
+{
+  timestamps: true
+}
+```
+
+Recommended history index:
+
+```js
+practiceAttemptSchema.index({ userId: 1, createdAt: -1 });
+```
+
+Is index se logged-in user ki latest history efficiently fetch hogi.
+
+Important rules:
+
+1. `guided` mode me `prompt` required validate karo.
+2. `free` mode me `prompt` empty string ho sakta hai.
+3. Gemini response save karne se pehle saare required feedback fields validate
+   karo.
+4. Scores sirf `0` se `10` ke beech accept karo.
+5. History query me hamesha authenticated user ka `userId` filter use karo.
+6. User delete behavior abhi MVP me add mat karo. Future me account deletion
+   add karte waqt related attempts delete ya anonymize karne ka decision lo.
+
+### Model Relationship
+
+```text
+User (1) -------- (many) PracticeAttempt
+```
+
+Ek user ke multiple practice attempts ho sakte hain. `PracticeAttempt.userId`
+MongoDB me `User._id` ko reference karega.
+
+Example history query:
+
+```js
+const attempts = await PracticeAttempt.find({ userId: req.user._id })
+  .sort({ createdAt: -1 })
+  .select("mode prompt feedback.scores.overall feedback.level createdAt");
+```
+
+### Models Not Required in Phase 1
+
+Abhi inke separate models mat banao:
+
+- Prompt
+- Feedback
+- Mistake
+- Score
+- Exercise
+- History
+
+Guided prompts frontend/backend constants me static list ke form me reh sakte
+hain. History koi separate collection nahi hai; history
+`PracticeAttempt` collection se fetch hogi.
+
+Phase 2 start hone par interview requirements ke liye separate
+`InterviewSession` model plan kiya jayega.
+
 ## Step 3 - Authentication
 
 Goal: User signup/login system create karna.
@@ -463,4 +719,3 @@ Follow this exact order:
 13. Deployment
 
 Do not start voice features before Phase 1 is complete.
-

@@ -4,6 +4,13 @@ export type BackendStatus = {
   serverTime: string;
 };
 
+export type TestingApiResponse = {
+  statusCode: number;
+  data: string;
+  message: string;
+  success: boolean;
+};
+
 const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
 
 export async function getBackendStatus(): Promise<BackendStatus> {
@@ -13,6 +20,16 @@ export async function getBackendStatus(): Promise<BackendStatus> {
 
   if (!response.ok) {
     throw new Error(`Backend request failed with status ${response.status}`);
+  }
+
+  return response.json();
+}
+
+export async function getTestingApi(): Promise<TestingApiResponse> {
+  const response = await fetch(`${API_URL}/testing`);
+
+  if (!response.ok) {
+    throw new Error(`Testing API failed with status ${response.status}`);
   }
 
   return response.json();

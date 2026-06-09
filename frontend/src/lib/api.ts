@@ -34,3 +34,7 @@ export async function getTestingApi(): Promise<TestingApiResponse> {
 
   return response.json();
 }
+
+export const registerUser = async() => {
+  const response = await fetch(`${API_URL}//api/v1/users/register`)
+}

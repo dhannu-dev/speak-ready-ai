@@ -1,5 +1,9 @@
 "use client";
 
+import { Alert, AlertDescription } from "@/components/ui/alert";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import { useLogin } from "@/hooks/useLogin";
 import Link from "next/link";
 import React, { useState } from "react";
@@ -85,15 +89,15 @@ export default function LoginPage() {
 
             <form onSubmit={handleSubmit} className="mt-8 space-y-5">
               <div>
-                <label
+                <Label
                   htmlFor="email"
-                  className="mb-2 block text-sm font-semibold text-slate-700"
+                  className="mb-2 font-semibold"
                 >
                   Email address
-                </label>
+                </Label>
                 <div className="group relative">
                   <FieldIcon type="email" />
-                  <input
+                  <Input
                     id="email"
                     type="email"
                     name="email"
@@ -101,26 +105,26 @@ export default function LoginPage() {
                     placeholder="you@company.com"
                     value={formData.email}
                     onChange={handleChange}
-                    className="h-12 w-full rounded-xl border border-slate-200 bg-white pl-12 pr-4 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 hover:border-slate-300 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10"
+                    className="h-12 rounded-xl pl-12 pr-4"
                   />
                 </div>
               </div>
 
               <div>
                 <div className="mb-2 flex items-center justify-between">
-                  <label
+                  <Label
                     htmlFor="password"
-                    className="text-sm font-semibold text-slate-700"
+                    className="font-semibold"
                   >
                     Password
-                  </label>
+                  </Label>
                   <span className="text-xs font-medium text-blue-600">
                     Forgot password?
                   </span>
                 </div>
                 <div className="group relative">
                   <FieldIcon type="password" />
-                  <input
+                  <Input
                     id="password"
                     type="password"
                     name="password"
@@ -128,24 +132,24 @@ export default function LoginPage() {
                     placeholder="Enter your password"
                     value={formData.password}
                     onChange={handleChange}
-                    className="h-12 w-full rounded-xl border border-slate-200 bg-white pl-12 pr-4 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 hover:border-slate-300 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10"
+                    className="h-12 rounded-xl pl-12 pr-4"
                   />
                 </div>
               </div>
 
               {isError && (
-                <p
-                  role="alert"
-                  className="rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700"
-                >
-                  {error instanceof Error ? error.message : "Login failed"}
-                </p>
+                <Alert className="rounded-xl">
+                  <AlertDescription>
+                    {error instanceof Error ? error.message : "Login failed"}
+                  </AlertDescription>
+                </Alert>
               )}
 
-              <button
+              <Button
                 type="submit"
                 disabled={isPending}
-                className="group flex h-12 w-full items-center justify-center gap-2 rounded-xl bg-blue-600 px-4 text-sm font-semibold text-white shadow-lg shadow-blue-600/20 transition hover:-translate-y-0.5 hover:bg-blue-700 hover:shadow-xl hover:shadow-blue-600/25 focus:outline-none focus:ring-4 focus:ring-blue-500/20 active:translate-y-0 disabled:cursor-not-allowed disabled:opacity-70 disabled:hover:translate-y-0"
+                size="lg"
+                className="group w-full font-semibold hover:-translate-y-0.5 hover:shadow-xl hover:shadow-blue-600/25 active:translate-y-0 disabled:hover:translate-y-0"
               >
                 {isPending ? "Signing in..." : "Sign in"}
                 {!isPending && (
@@ -164,7 +168,7 @@ export default function LoginPage() {
                     />
                   </svg>
                 )}
-              </button>
+              </Button>
             </form>
 
             <p className="mt-7 text-center text-sm text-slate-500">

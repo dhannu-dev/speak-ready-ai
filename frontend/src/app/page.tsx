@@ -1,5 +1,8 @@
 "use client";
 
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import { useRegister } from "@/hooks/useRegister";
 import Link from "next/link";
 import React, { useState } from "react";
@@ -36,7 +39,7 @@ export default function CreateUser() {
   return (
     <main className="relative min-h-screen overflow-hidden bg-[#f6f8fc] px-4 py-6 text-slate-900 sm:px-6 lg:px-8">
       <div className="pointer-events-none absolute -left-40 -top-40 h-96 w-96 rounded-full bg-blue-200/40 blur-3xl" />
-      <div className="pointer-events-none absolute -bottom-48 -right-32 h-[28rem] w-[28rem] rounded-full bg-indigo-200/40 blur-3xl" />
+      <div className="pointer-events-none absolute -bottom-48 -right-32 h-112 w-[28rem] rounded-full bg-indigo-200/40 blur-3xl" />
 
       <div className="relative mx-auto flex min-h-[calc(100vh-3rem)] w-full max-w-6xl overflow-hidden rounded-[2rem] border border-slate-200/80 bg-white shadow-[0_32px_100px_-32px_rgba(15,23,42,0.22)]">
         <section className="relative hidden w-[46%] flex-col justify-between overflow-hidden bg-slate-950 p-12 text-white lg:flex">
@@ -159,12 +162,12 @@ export default function CreateUser() {
 
             <form onSubmit={handleSubmit} className="mt-8 space-y-5">
               <div>
-                <label
+                <Label
                   htmlFor="name"
-                  className="mb-2 block text-sm font-semibold text-slate-700"
+                  className="mb-2 font-semibold"
                 >
                   Full name
-                </label>
+                </Label>
                 <div className="group relative">
                   <svg
                     viewBox="0 0 24 24"
@@ -179,25 +182,25 @@ export default function CreateUser() {
                       strokeLinecap="round"
                     />
                   </svg>
-                  <input
+                  <Input
                     id="name"
                     type="text"
                     name="name"
                     placeholder="Enter your full name"
                     value={formData.name}
                     onChange={handleChange}
-                    className="h-12 w-full rounded-xl border border-slate-200 bg-white pl-12 pr-4 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 hover:border-slate-300 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10"
+                    className="h-12 rounded-xl pl-12 pr-4"
                   />
                 </div>
               </div>
 
               <div>
-                <label
+                <Label
                   htmlFor="email"
-                  className="mb-2 block text-sm font-semibold text-slate-700"
+                  className="mb-2 font-semibold"
                 >
                   Email address
-                </label>
+                </Label>
                 <div className="group relative">
                   <svg
                     viewBox="0 0 24 24"
@@ -213,26 +216,26 @@ export default function CreateUser() {
                       strokeLinejoin="round"
                     />
                   </svg>
-                  <input
+                  <Input
                     id="email"
                     type="email"
                     name="email"
                     placeholder="you@company.com"
                     value={formData.email}
                     onChange={handleChange}
-                    className="h-12 w-full rounded-xl border border-slate-200 bg-white pl-12 pr-4 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 hover:border-slate-300 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10"
+                    className="h-12 rounded-xl pl-12 pr-4"
                   />
                 </div>
               </div>
 
               <div>
                 <div className="mb-2 flex items-center justify-between">
-                  <label
+                  <Label
                     htmlFor="password"
-                    className="text-sm font-semibold text-slate-700"
+                    className="font-semibold"
                   >
                     Password
-                  </label>
+                  </Label>
                   <span className="text-xs text-slate-400">
                     Minimum 8 characters
                   </span>
@@ -251,21 +254,22 @@ export default function CreateUser() {
                       strokeLinecap="round"
                     />
                   </svg>
-                  <input
+                  <Input
                     id="password"
                     type="password"
                     name="password"
                     placeholder="Create a secure password"
                     value={formData.password}
                     onChange={handleChange}
-                    className="h-12 w-full rounded-xl border border-slate-200 bg-white pl-12 pr-4 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 hover:border-slate-300 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10"
+                    className="h-12 rounded-xl pl-12 pr-4"
                   />
                 </div>
               </div>
 
-              <button
+              <Button
                 type="submit"
-                className="group flex h-12 w-full items-center justify-center gap-2 rounded-xl bg-blue-600 px-4 text-sm font-semibold text-white shadow-lg shadow-blue-600/20 transition hover:-translate-y-0.5 hover:bg-blue-700 hover:shadow-xl hover:shadow-blue-600/25 focus:outline-none focus:ring-4 focus:ring-blue-500/20 active:translate-y-0"
+                size="lg"
+                className="group w-full font-semibold hover:-translate-y-0.5 hover:shadow-xl hover:shadow-blue-600/25 active:translate-y-0"
               >
                 Create free account
                 <svg
@@ -282,7 +286,7 @@ export default function CreateUser() {
                     strokeLinejoin="round"
                   />
                 </svg>
-              </button>
+              </Button>
             </form>
 
             <p className="mt-6 text-center text-xs leading-5 text-slate-400">

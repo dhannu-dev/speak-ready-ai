@@ -1,6 +1,7 @@
 "use client";
 
 import { useRegister } from "@/hooks/useRegister";
+import Link from "next/link";
 import React, { useState } from "react";
 
 export default function CreateUser() {
@@ -288,6 +289,16 @@ export default function CreateUser() {
               By creating an account, you agree to our{" "}
               <span className="font-medium text-slate-600">Terms of Service</span>{" "}
               and <span className="font-medium text-slate-600">Privacy Policy</span>.
+            </p>
+
+            <p className="mt-5 text-center text-sm text-slate-500">
+              Already have an account?{" "}
+              <Link
+                href="/login"
+                className="font-semibold text-blue-600 transition hover:text-blue-700"
+              >
+                Sign in
+              </Link>
             </p>
           </div>
         </section>

@@ -28,6 +28,26 @@ export type RegisterResponse = {
   success: boolean;
 };
 
+export type LoginInput = {
+  email: string;
+  password: string;
+};
+
+export type LoginResponse = {
+  statusCode: number;
+  data: {
+    user: {
+      _id: string;
+      name: string;
+      email: string;
+    };
+    accessToken: string;
+    refreshToken: string;
+  };
+  message: string;
+  success: boolean;
+};
+
 const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
 
 export async function getBackendStatus(): Promise<BackendStatus> {
@@ -69,5 +89,24 @@ export const registerUser = async (
   if (!response.ok) {
     throw new Error(data.message || "Registration failed");
   }
+  return data;
+};
+
+export const loginUser = async (input: LoginInput): Promise<LoginResponse> => {
+  const response = await fetch(`${API_URL}/api/v1/users/login`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    credentials: "include",
+    body: JSON.stringify(input),
+  });
+
+  const data = await response.json();
+
+  if (!response.ok) {
+    throw new Error(data.message || "Login failed");
+  }
+
   return data;
 };

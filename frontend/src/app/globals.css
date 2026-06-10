@@ -24,3 +24,77 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+@keyframes dashboard-enter {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes dashboard-progress {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+.dashboard-enter {
+  animation: dashboard-enter 600ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.dashboard-delay-1 {
+  animation-delay: 80ms;
+}
+
+.dashboard-delay-2 {
+  animation-delay: 160ms;
+}
+
+.dashboard-delay-3 {
+  animation-delay: 240ms;
+}
+
+.dashboard-progress {
+  transform-origin: left;
+  animation: dashboard-progress 900ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.dashboard-card {
+  transition:
+    transform 220ms ease,
+    box-shadow 250ms ease,
+    border-color 250ms ease;
+}
+
+.dashboard-card:hover {
+  transform: translateY(-1px);
+  border-color: rgb(214 220 229);
+  box-shadow: 0 14px 34px -28px rgb(15 23 42 / 0.32);
+}
+
+.dashboard-button svg {
+  transition: transform 200ms ease;
+}
+
+.dashboard-button:hover svg {
+  transform: translateX(3px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dashboard-enter,
+  .dashboard-progress {
+    animation: none;
+  }
+
+  .dashboard-card,
+  .dashboard-button svg {
+    transition: none;
+  }
+}

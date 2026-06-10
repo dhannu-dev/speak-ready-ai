@@ -28,6 +28,12 @@ export type RegisterResponse = {
   success: boolean;
 };
 
+export type LogoutResponse = {
+  statusCode: number;
+  message: string;
+  success: boolean;
+};
+
 export type LoginInput = {
   email: string;
   password: string;
@@ -106,6 +112,24 @@ export const loginUser = async (input: LoginInput): Promise<LoginResponse> => {
 
   if (!response.ok) {
     throw new Error(data.message || "Login failed");
+  }
+
+  return data;
+};
+
+export const logout = async (): Promise<LogoutResponse> => {
+  const response = await fetch(`${API_URL}/api/v1/users/logout`, {
+    method: "POST",
+    headers: {
+      "Content-type": "application/json",
+    },
+    credentials: "include",
+  });
+
+  const data = await response.json();
+
+  if (!response.ok) {
+    throw new Error(data.message || "Logout failed");
   }
 
   return data;

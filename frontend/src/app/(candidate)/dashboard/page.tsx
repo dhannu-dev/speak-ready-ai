@@ -1,3 +1,4 @@
+"use client";
 import Link from "next/link";
 
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
@@ -10,6 +11,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { useLogout } from "@/hooks/useLogout";
 
 const recentAttempts = [
   {
@@ -42,6 +44,10 @@ const scoreBreakdown = [
 ];
 
 export default function Dashboard() {
+  const { mutate, isPending, isSuccess, isError, error } = useLogout();
+  const handleLogout = () => {
+    mutate();
+  };
   return (
     <div className="min-h-screen bg-[#fafafa] text-slate-950">
       <aside className="fixed inset-y-0 left-0 z-30 hidden w-[248px] border-r border-slate-200/80 bg-white lg:flex lg:flex-col">
@@ -82,6 +88,7 @@ export default function Dashboard() {
           </div>
           <Button
             variant="ghost"
+            onClick={handleLogout}
             className="mt-1 h-10 w-full justify-start rounded-lg px-3 text-xs font-medium text-slate-500 hover:bg-red-50 hover:text-red-600"
           >
             <Icon name="logout" className="h-4 w-4" />
@@ -223,7 +230,9 @@ export default function Dashboard() {
                     <span className="text-3xl font-semibold tracking-[-0.04em]">
                       80%
                     </span>
-                    <p className="mt-1 text-xs text-slate-400">4 of 5 sessions</p>
+                    <p className="mt-1 text-xs text-slate-400">
+                      4 of 5 sessions
+                    </p>
                   </div>
                   <span className="flex h-10 w-10 items-center justify-center rounded-full bg-emerald-50 text-emerald-600">
                     <Icon name="trend" className="h-[18px] w-[18px]" />

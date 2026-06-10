@@ -38,14 +38,14 @@ export default function CreateUser() {
 
   return (
     <main className="relative min-h-screen overflow-hidden bg-[#f6f8fc] px-4 py-6 text-slate-900 sm:px-6 lg:px-8">
-      <div className="pointer-events-none absolute -left-40 -top-40 h-96 w-96 rounded-full bg-blue-200/40 blur-3xl" />
-      <div className="pointer-events-none absolute -bottom-48 -right-32 h-112 w-[28rem] rounded-full bg-indigo-200/40 blur-3xl" />
+      <div className="pointer-events-none absolute -left-40 -top-40 h-96 w-96 rounded-[10px] bg-blue-200/40 blur-3xl" />
+      <div className="pointer-events-none absolute -bottom-48 -right-32 h-112 w-md rounded-[10px] bg-indigo-200/40 blur-3xl" />
 
-      <div className="relative mx-auto flex min-h-[calc(100vh-3rem)] w-full max-w-6xl overflow-hidden rounded-[2rem] border border-slate-200/80 bg-white shadow-[0_32px_100px_-32px_rgba(15,23,42,0.22)]">
+      <div className="relative mx-auto flex min-h-[calc(100vh-3rem)] w-full max-w-6xl overflow-hidden rounded-[20px] border border-slate-200/80 bg-white shadow-[0_32px_100px_-32px_rgba(15,23,42,0.22)]">
         <section className="relative hidden w-[46%] flex-col justify-between overflow-hidden bg-slate-950 p-12 text-white lg:flex">
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_15%_15%,rgba(59,130,246,0.3),transparent_30%),radial-gradient(circle_at_85%_80%,rgba(99,102,241,0.25),transparent_35%)]" />
-          <div className="absolute left-1/2 top-1/2 h-80 w-80 -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/5" />
-          <div className="absolute left-1/2 top-1/2 h-56 w-56 -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/5" />
+          <div className="absolute left-1/2 top-1/2 h-80 w-80 -translate-x-1/2 -translate-y-1/2 rounded-[10px] border border-white/5" />
+          <div className="absolute left-1/2 top-1/2 h-56 w-56 -translate-x-1/2 -translate-y-1/2 rounded-[10px] border border-white/5" />
 
           <div className="relative">
             <div className="flex items-center gap-3">
@@ -72,7 +72,7 @@ export default function CreateUser() {
           </div>
 
           <div className="relative max-w-md">
-            <span className="inline-flex items-center gap-2 rounded-full border border-blue-400/20 bg-blue-400/10 px-3 py-1.5 text-xs font-medium text-blue-200">
+            <span className="inline-flex items-center gap-2 rounded-[10px] border border-blue-400/20 bg-blue-400/10 px-3 py-1.5 text-xs font-medium text-blue-200 ">
               <span className="h-1.5 w-1.5 rounded-full bg-blue-400" />
               AI-powered English coaching
             </span>

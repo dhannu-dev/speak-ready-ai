@@ -65,6 +65,7 @@ export const loginUser = asyncHandler(async (req, res) => {
   // send res
 
   const { name, email, password } = req.body;
+  console.log({ email, password });
   if (!email || !password) {
     throw new ApiError(400, "email or password are required");
   }
@@ -72,7 +73,6 @@ export const loginUser = asyncHandler(async (req, res) => {
   if (!user) {
     throw new ApiError(404, "User does not exit");
   }
-
   const isPasswordValid = await bcrypt.compare(password, user.password);
   if (!isPasswordValid) {
     throw new ApiError(401, "Invalid email or password");

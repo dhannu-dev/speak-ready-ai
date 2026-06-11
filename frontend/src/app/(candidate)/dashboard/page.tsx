@@ -15,8 +15,8 @@ export default function DashboardPage() {
 
   return (
     <div className="min-h-screen bg-[#f5f6f8] text-slate-950">
-      <aside className="fixed inset-y-0 left-0 z-30 hidden w-[220px] flex-col border-r border-slate-200 bg-white lg:flex">
-        <div className="flex h-[74px] items-center gap-3 border-b border-slate-200 px-5">
+      <aside className="fixed inset-y-0 left-0 z-30 hidden w-55 flex-col border-r border-slate-200 bg-white lg:flex">
+        <div className="flex h-18.5 items-center gap-3 border-b border-slate-200 px-5">
           <BrandMark />
           <div>
             <p className="text-base font-semibold leading-5">SpeakReady</p>
@@ -38,27 +38,44 @@ export default function DashboardPage() {
                   : "font-medium text-slate-600 hover:bg-slate-50 hover:text-slate-950"
               }`}
             >
-              <DashboardIcon name={item.icon} className="h-[18px] w-[18px]" />
+              <DashboardIcon name={item.icon} className="h-4.5 w-4.5" />
               {item.label}
             </Link>
           ))}
         </nav>
 
         <div className="border-t border-slate-200 p-4">
-          <Button
-            variant="ghost"
-            onClick={() => logout()}
-            disabled={isPending}
-            className="h-11 w-full justify-start rounded-xl px-4 font-medium text-slate-600 hover:bg-red-50 hover:text-red-600"
-          >
-            <DashboardIcon name="logout" className="h-[18px] w-[18px]" />
-            {isPending ? "Logging out..." : "Log out"}
-          </Button>
+          <div className="flex items-center gap-2 rounded-xl">
+            <Avatar className="h-9 w-9">
+              <AvatarFallback className="bg-blue-50 text-xs text-blue-600">
+                RS
+              </AvatarFallback>
+            </Avatar>
+            <div className="min-w-0 flex-1">
+              <p className="truncate text-xs font-semibold text-slate-900">
+                Rahul Sharma
+              </p>
+              <p className="mt-0.5 truncate text-[10px] text-slate-500">
+                rahul@example.com
+              </p>
+            </div>
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={() => logout()}
+              disabled={isPending}
+              className="h-9 w-9 shrink-0 rounded-lg text-slate-500 hover:bg-red-50 hover:text-red-600"
+              aria-label={isPending ? "Logging out" : "Log out"}
+              title={isPending ? "Logging out..." : "Log out"}
+            >
+              <DashboardIcon name="logout" className="h-4.25 w-4.25" />
+            </Button>
+          </div>
         </div>
       </aside>
 
-      <div className="lg:pl-[220px]">
-        <header className="sticky top-0 z-20 h-[74px] border-b border-slate-200 bg-white">
+      <div className="lg:pl-55">
+        <header className="sticky top-0 z-20 h-18.5 border-b border-slate-200 bg-white">
           <div className="flex h-full items-center justify-between px-4 sm:px-7 lg:px-10">
             <div className="flex items-center gap-3">
               <span className="lg:hidden">
@@ -78,7 +95,7 @@ export default function DashboardPage() {
                 className="relative h-10 w-10 rounded-full text-slate-600"
                 aria-label="Notifications"
               >
-                <DashboardIcon name="bell" className="h-[19px] w-[19px]" />
+                <DashboardIcon name="bell" className="h-4.75 w-4.75" />
                 <span className="absolute right-2 top-2 h-2 w-2 rounded-full border-2 border-white bg-blue-600" />
               </Button>
 
@@ -106,10 +123,10 @@ export default function DashboardPage() {
                 className="h-10 w-10 rounded-full text-slate-600 lg:hidden"
                 aria-label="Log out"
               >
-                <DashboardIcon name="logout" className="h-[18px] w-[18px]" />
+                <DashboardIcon name="logout" className="h-4.5 w-4.5" />
               </Button>
             </div>
-          </div>
+          </div>c
         </header>
 
         <DashboardContent />

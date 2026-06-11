@@ -43,6 +43,14 @@ export const summaryCards: {
     icon: "target",
     iconClassName: "bg-amber-500",
   },
+  {
+    label: "Total practices",
+    value: "24",
+    suffix: "attempts",
+    helper: "3 completed this week",
+    icon: "practice",
+    iconClassName: "bg-violet-600",
+  },
 ];
 
 export const recentAttempts = [

@@ -15,7 +15,7 @@ export default function DashboardPage() {
 
   return (
     <div className="min-h-screen bg-[#f5f6f8] text-slate-950">
-      <aside className="fixed inset-y-0 left-0 z-30 hidden w-[260px] flex-col border-r border-slate-200 bg-white lg:flex">
+      <aside className="fixed inset-y-0 left-0 z-30 hidden w-[220px] flex-col border-r border-slate-200 bg-white lg:flex">
         <div className="flex h-[74px] items-center gap-3 border-b border-slate-200 px-5">
           <BrandMark />
           <div>
@@ -57,7 +57,7 @@ export default function DashboardPage() {
         </div>
       </aside>
 
-      <div className="lg:pl-[260px]">
+      <div className="lg:pl-[220px]">
         <header className="sticky top-0 z-20 h-[74px] border-b border-slate-200 bg-white">
           <div className="flex h-full items-center justify-between px-4 sm:px-7 lg:px-10">
             <div className="flex items-center gap-3">

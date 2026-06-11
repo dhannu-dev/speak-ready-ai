@@ -8,7 +8,7 @@ import { LearningPlan } from "./LearningPlan";
 
 export function DashboardContent() {
   return (
-    <main className="mx-auto max-w-[1500px] px-4 py-7 sm:px-7 lg:px-10 lg:py-10">
+    <main className="mx-auto max-w-375 px-4 py-7 sm:px-7 lg:px-10 lg:py-10">
       <section className="dashboard-enter flex flex-col gap-5 sm:flex-row sm:items-start sm:justify-between">
         <div>
           <h1 className="text-2xl font-bold tracking-[-0.03em] sm:text-3xl">
@@ -28,7 +28,7 @@ export function DashboardContent() {
         </Link>
       </section>
 
-      <section className="dashboard-enter dashboard-delay-1 mt-8 grid gap-5 md:grid-cols-3">
+      <section className="dashboard-enter dashboard-delay-1 mt-8 grid gap-5 sm:grid-cols-2 xl:grid-cols-4">
         {summaryCards.map((card) => (
           <article
             key={card.label}
@@ -111,7 +111,7 @@ export function DashboardContent() {
               className="group flex items-center gap-3 px-5 py-4 transition-colors hover:bg-slate-50 sm:px-6"
             >
               <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-blue-50 text-blue-600">
-                <DashboardIcon name="document" className="h-[18px] w-[18px]" />
+                <DashboardIcon name="document" className="h-4.5 w-4.5" />
               </span>
               <div className="min-w-0 flex-1">
                 <p className="truncate text-sm font-semibold text-slate-900">

@@ -26,7 +26,10 @@ export default function DashboardPage() {
           </div>
         </div>
 
-        <nav className="flex-1 space-y-1 px-4 py-5" aria-label="Main navigation">
+        <nav
+          className="flex-1 space-y-1 px-4 py-5"
+          aria-label="Main navigation"
+        >
           {navigationItems.map((item) => (
             <Link
               key={item.label}
@@ -77,14 +80,7 @@ export default function DashboardPage() {
       <div className="lg:pl-55">
         <header className="sticky top-0 z-20 h-18.5 border-b border-slate-200 bg-white">
           <div className="flex h-full items-center justify-between px-4 sm:px-7 lg:px-10">
-            <div className="flex items-center gap-3">
-              <span className="lg:hidden">
-                <BrandMark />
-              </span>
-              <DashboardIcon
-                name="panel"
-                className="hidden h-5 w-5 text-slate-700 lg:block"
-              />
+            <div className="flex items-start">
               <p className="text-sm font-semibold sm:text-base">Dashboard</p>
             </div>
 
@@ -101,20 +97,6 @@ export default function DashboardPage() {
 
               <div className="hidden h-8 w-px bg-slate-200 sm:block" />
 
-              <div className="flex items-center gap-2.5">
-                <Avatar className="h-10 w-10">
-                  <AvatarFallback className="bg-blue-50 text-xs text-blue-600">
-                    RS
-                  </AvatarFallback>
-                </Avatar>
-                <div className="hidden sm:block">
-                  <p className="text-sm font-semibold leading-4">Rahul Sharma</p>
-                  <p className="mt-1 text-[10px] uppercase tracking-wide text-slate-500">
-                    Intermediate
-                  </p>
-                </div>
-              </div>
-
               <Button
                 variant="ghost"
                 size="icon"
@@ -126,7 +108,7 @@ export default function DashboardPage() {
                 <DashboardIcon name="logout" className="h-4.5 w-4.5" />
               </Button>
             </div>
-          </div>c
+          </div>
         </header>
 
         <DashboardContent />

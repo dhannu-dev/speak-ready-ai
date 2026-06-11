@@ -11,10 +11,10 @@ export function DashboardContent() {
     <main className="mx-auto max-w-375 px-4 py-7 sm:px-7 lg:px-10 lg:py-10">
       <section className="dashboard-enter flex flex-col gap-5 sm:flex-row sm:items-start sm:justify-between">
         <div>
-          <h1 className="text-2xl font-bold tracking-[-0.03em] sm:text-3xl">
+          <h1 className="text-xl font-semibold tracking-[-0.03em] sm:text-2xl">
             Welcome back, <span className="text-blue-600">Rahul</span>
           </h1>
-          <p className="mt-2 text-sm text-slate-600">
+          <p className=" text-sm text-slate-600">
             Keep building your English confidence with today&apos;s practice.
           </p>
         </div>
@@ -39,7 +39,7 @@ export function DashboardContent() {
                 {card.label}
               </p>
               <div className="mt-3 flex items-end gap-2">
-                <span className="text-3xl font-semibold tracking-tight">
+                <span className="text-2xl font-semibold tracking-tight">
                   {card.value}
                 </span>
                 <span className="pb-1 text-xs text-slate-500">
@@ -49,7 +49,7 @@ export function DashboardContent() {
               <p className="mt-3 text-xs text-slate-500">{card.helper}</p>
             </div>
             <span
-              className={`flex h-14 w-14 shrink-0 items-center justify-center rounded-full text-white ${card.iconClassName}`}
+              className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-full text-white ${card.iconClassName}`}
             >
               <DashboardIcon name={card.icon} className="h-6 w-6" />
             </span>

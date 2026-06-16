@@ -1,6 +1,6 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
 
-const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
+const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || "");
 
 export const analyzeEnglishText = async (text) => {
   const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
@@ -8,7 +8,7 @@ export const analyzeEnglishText = async (text) => {
   Analyze the following English text and return only valid JSON in this format : 
   {
     "correctedText" : "Corrected English version",
-    "SummaryHindi" : "Hinglish me summary",
+    "summaryHindi" : "Hinglish me summary",
      "mistakes": [
     {
       "wrong": "wrong phrase",

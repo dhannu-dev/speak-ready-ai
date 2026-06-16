@@ -6,13 +6,13 @@ import { asyncHandler } from "../utils/asyncHandler.js";
 
 export const analyzePractice = asyncHandler(async (req, res) => {
   const { mode, prompt, text } = req.body;
-  if (text || text.length > 10) {
+  if (!text || text.length < 10) {
     throw new ApiError(400, "Text must be at least 10 characters");
   }
 
   const feedback = await analyzeEnglishText(text);
   const attempt = await PracticeAttempt.create({
-    userId: req.user._id,
+    user: req.user._id,
     mode,
     prompt: prompt || "",
     originalText: text,

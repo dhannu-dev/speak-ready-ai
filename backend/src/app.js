@@ -23,6 +23,6 @@ import userRouter from "./routes/user.routes.js";
 import practiceRoutes from "./routes/practice.routes.js";
 
 app.use("/api/v1/users", userRouter);
-app.use("/api/vi/practice", practiceRoutes);
+app.use("/api/v1/practice", practiceRoutes);
 
 export default app;

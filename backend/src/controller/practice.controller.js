@@ -1,7 +1,7 @@
 import { PracticeAttempt } from "../models/practiceAttempt.model.js";
 import { analyzeEnglishText } from "../services/gemini.service.js";
 import ApiError from "../utils/apiError.js";
-import ApiResponse from "../utils/apiResponse";
+import ApiResponse from "../utils/apiResponse.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
 
 export const analyzePractice = asyncHandler(async (req, res) => {

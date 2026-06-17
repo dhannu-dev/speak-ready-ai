@@ -4,15 +4,18 @@ const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
 
 export const analyzeEnglishText = async (text) => {
   const prompt = `You are an English teacher for Hindi-speaking students.
-  Analyze the following English text and return only valid JSON in this format : 
+  Analyze the following English text and return only valid JSON in this format.
+  IMPORTANT: All Hindi text must be written in Hinglish (Roman/English script), NOT in Devanagari script. For example write "aapkaafi achha likhte ho" NOT "आप काफी अच्छा लिखते हो".
+  
+  JSON format:
   {
     "correctedText" : "Corrected English version",
-    "summaryHindi" : "Hinglish me summary",
-     "mistakes": [
+    "summaryHindi" : "Summary in Hinglish using Roman script",
+    "mistakes": [
     {
       "wrong": "wrong phrase",
       "correct": "correct phrase",
-      "explanationHindi": "Hindi explanation"
+      "explanationHindi": "Explanation in Hinglish using Roman script"
     }
   ],
   "scores": {
@@ -23,8 +26,8 @@ export const analyzeEnglishText = async (text) => {
   },
   "level": "Beginner",
   "weakAreas": ["Grammar"],
-  "personalizedExercises": ["Exercise 1 in Hindi"],
-  "motivationHindi": "Hindi motivation message in Hinglish"
+  "personalizedExercises": ["Exercise in Hinglish using Roman script"],
+  "motivationHindi": "Motivation message in Hinglish using Roman script"
 
   }
   

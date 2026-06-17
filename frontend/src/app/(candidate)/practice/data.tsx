@@ -36,39 +36,35 @@ export const guidedPrompts = [
 export type PracticeMode = "free" | "guided";
 
 export const mockFeedback = {
-  correctedEnglish:
+  correctedText:
     "My name is Rahul Sharma. I am from Jaipur, Rajasthan. I am currently pursuing my Bachelor's degree in Computer Science. I am passionate about learning new technologies and improving my communication skills. In my free time, I enjoy reading books and watching English movies to enhance my vocabulary.",
-  hindiSummary:
+  summaryHindi:
     "Rahul ne apna parichay diya hai. Usne bataya ki wo Jaipur se hai aur Computer Science mein padhai kar raha hai. Usne apni hobbies aur English seekhne ke interest ke baare mein bhi bataya.",
-  overallScore: 8.2,
   level: "Intermediate",
   scores: {
     grammar: 8.5,
     vocabulary: 7.8,
     clarity: 8.6,
-    structure: 8.0,
+    overall: 8.2,
   },
   mistakes: [
     {
-      original: "I am from Jaipur, Rajasthan.",
-      corrected: "I am from Jaipur, Rajasthan.",
-      type: "Punctuation",
-      explanation: "Correct hai! Comma properly use hua hai.",
+      wrong: "I am from Jaipur, Rajasthan.",
+      correct: "I am from Jaipur, Rajasthan.",
+      explanationHindi: "Correct hai! Comma properly use hua hai.",
     },
     {
-      original: "I am passionate about learning new technologies",
-      corrected:
+      wrong: "I am passionate about learning new technologies",
+      correct:
         "I am passionate about learning new technologies and improving my communication skills.",
-      type: "Incomplete Thought",
-      explanation:
+      explanationHindi:
         "Sentence complete hai, but conjunction add karne se flow better hota hai.",
     },
     {
-      original: "In my free time, I enjoy reading books",
-      corrected:
+      wrong: "In my free time, I enjoy reading books",
+      correct:
         "In my free time, I enjoy reading books and watching English movies.",
-      type: "Vocabulary",
-      explanation:
+      explanationHindi:
         "Aur examples add karne se answer aur strong hota hai.",
     },
   ],
@@ -77,13 +73,13 @@ export const mockFeedback = {
     "Try to vary sentence length for better rhythm",
     "Add specific examples to support your points",
   ],
-  exercises: [
+  personalizedExercises: [
     "Write 5 sentences using 'furthermore' or 'moreover'",
     "Rewrite your introduction using 3 different sentence structures",
     "Practice using conditional sentences (If I..., I would...)",
   ],
-  motivation:
-    "Bahut achha Rahul! Tumhara English improvement ho raha hai. Regular practice se tum aur better ho jaoge. Keep it up! 💪",
+  motivationHindi:
+    "Bahut achha Rahul! Tumhara English improvement ho raha hai. Regular practice se tum aur better ho jaoge. Keep it up!",
 };
 
 export const practiceIcons = {

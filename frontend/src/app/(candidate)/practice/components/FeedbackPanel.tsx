@@ -4,25 +4,23 @@ import { ScoreCard } from "./ScoreCard";
 import { MistakeList } from "./MistakeList";
 
 type FeedbackData = {
-  correctedEnglish: string;
-  hindiSummary: string;
-  overallScore: number;
+  correctedText: string;
+  summaryHindi: string;
   level: string;
   scores: {
     grammar: number;
     vocabulary: number;
     clarity: number;
-    structure: number;
+    overall: number;
   };
   mistakes: {
-    original: string;
-    corrected: string;
-    type: string;
-    explanation: string;
+    wrong: string;
+    correct: string;
+    explanationHindi: string;
   }[];
   weakAreas: string[];
-  exercises: string[];
-  motivation: string;
+  personalizedExercises: string[];
+  motivationHindi: string;
 };
 
 type FeedbackPanelProps = {
@@ -55,7 +53,7 @@ export function FeedbackPanel({ feedback, onReset }: FeedbackPanelProps) {
       </div>
 
       <ScoreCard
-        overallScore={feedback.overallScore}
+        overallScore={feedback.scores.overall}
         level={feedback.level}
         scores={feedback.scores}
       />
@@ -65,7 +63,7 @@ export function FeedbackPanel({ feedback, onReset }: FeedbackPanelProps) {
           Corrected English
         </h3>
         <p className="mt-3 text-sm leading-7 text-slate-700">
-          {feedback.correctedEnglish}
+          {feedback.correctedText}
         </p>
       </div>
 
@@ -79,7 +77,7 @@ export function FeedbackPanel({ feedback, onReset }: FeedbackPanelProps) {
               Hindi Summary
             </p>
             <p className="mt-1.5 text-sm leading-6 text-blue-900">
-              {feedback.hindiSummary}
+              {feedback.summaryHindi}
             </p>
           </div>
         </div>
@@ -104,7 +102,7 @@ export function FeedbackPanel({ feedback, onReset }: FeedbackPanelProps) {
           Personalized Exercises
         </h3>
         <ul className="mt-3 space-y-2">
-          {feedback.exercises.map((exercise, index) => (
+          {feedback.personalizedExercises.map((exercise, index) => (
             <li key={index} className="flex items-start gap-2">
               <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-md bg-blue-50 text-[10px] font-bold text-blue-600">
                 {index + 1}
@@ -127,7 +125,7 @@ export function FeedbackPanel({ feedback, onReset }: FeedbackPanelProps) {
               Motivation
             </p>
             <p className="mt-1.5 text-sm leading-6 text-emerald-900">
-              {feedback.motivation}
+              {feedback.motivationHindi}
             </p>
           </div>
         </div>

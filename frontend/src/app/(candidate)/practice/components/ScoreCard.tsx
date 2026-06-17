@@ -7,7 +7,7 @@ type ScoreCardProps = {
     grammar: number;
     vocabulary: number;
     clarity: number;
-    structure: number;
+    overall: number;
   };
 };
 

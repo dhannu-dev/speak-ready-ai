@@ -49,29 +49,28 @@ export type PracticeResponse = {
   statusCode: number;
   data: {
     _id: string;
+    user: string;
     mode: string;
     prompt: string;
     originalText: string;
     feedback: {
-      correctedEnglish: string;
-      hindiSummary: string;
-      overallScore: number;
+      correctedText: string;
+      summaryHindi: string;
       level: string;
       scores: {
         grammar: number;
-        vocabulary: number;
         clarity: number;
-        structure: number;
+        vocabulary: number;
+        overall: number;
       };
       mistakes: {
-        original: string;
-        corrected: string;
-        type: string;
-        explanation: string;
+        wrong: string;
+        correct: string;
+        explanationHindi: string;
       }[];
       weakAreas: string[];
-      exercises: string[];
-      motivation: string;
+      personalizedExercises: string[];
+      motivationHindi: string;
     };
   };
   message: string;

@@ -20,7 +20,8 @@ export default function PracticePage() {
   const [editorValue, setEditorValue] = useState("");
   const [showFeedback, setShowFeedback] = useState(true);
 
-  const { mutate } = usePractice();
+  const { mutate, data } = usePractice();
+  console.log("data", data);
 
   const selectedPrompt = guidedPrompts.find((p) => p.id === selectedPromptId);
 
@@ -221,7 +222,7 @@ export default function PracticePage() {
 
             <div className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
               {showFeedback ? (
-                <FeedbackPanel feedback={mockFeedback} onReset={handleReset} />
+                <FeedbackPanel feedback={data?.data?.feedback || mockFeedback} onReset={handleReset} />
               ) : (
                 <div className="flex flex-col items-center justify-center py-16 text-center">
                   <span className="flex h-16 w-16 items-center justify-center rounded-2xl bg-blue-50 text-blue-600">

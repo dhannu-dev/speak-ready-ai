@@ -4,7 +4,7 @@ import { useMutation } from "@tanstack/react-query";
 export const usePractice = () => {
   return useMutation({
     mutationFn: practiceAPI,
-    onSuccess: () => {
+    onSuccess: (data) => {
       alert("your response send successfully");
     },
 

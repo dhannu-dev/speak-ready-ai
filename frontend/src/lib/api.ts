@@ -39,6 +39,45 @@ export type LoginInput = {
   password: string;
 };
 
+export type PracticeInput = {
+  mode: string;
+  prompt: string;
+  text: string;
+};
+
+export type PracticeResponse = {
+  statusCode: number;
+  data: {
+    _id: string;
+    mode: string;
+    prompt: string;
+    originalText: string;
+    feedback: {
+      correctedEnglish: string;
+      hindiSummary: string;
+      overallScore: number;
+      level: string;
+      scores: {
+        grammar: number;
+        vocabulary: number;
+        clarity: number;
+        structure: number;
+      };
+      mistakes: {
+        original: string;
+        corrected: string;
+        type: string;
+        explanation: string;
+      }[];
+      weakAreas: string[];
+      exercises: string[];
+      motivation: string;
+    };
+  };
+  message: string;
+  success: boolean;
+};
+
 export type LoginResponse = {
   statusCode: number;
   data: {
@@ -130,6 +169,27 @@ export const logout = async (): Promise<LogoutResponse> => {
 
   if (!response.ok) {
     throw new Error(data.message || "Logout failed");
+  }
+
+  return data;
+};
+
+export const practiceAPI = async (
+  input: PracticeInput,
+): Promise<PracticeResponse> => {
+  const response = await fetch(`${API_URL}/api/v1/practice/analyze`, {
+    method: "POST",
+    headers: {
+      "Content-type": "application/json",
+    },
+    body: JSON.stringify(input),
+    credentials: "include",
+  });
+
+  const data = await response.json();
+
+  if (!response.ok) {
+    throw new Error(data.message || "response failed");
   }
 
   return data;

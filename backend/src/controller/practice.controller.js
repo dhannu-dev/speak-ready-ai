@@ -1,5 +1,5 @@
 import { PracticeAttempt } from "../models/practiceAttempt.model.js";
-import { analyzeEnglishText } from "../services/gemini.service.js";
+import { analyzeEnglishText } from "../services/groq.service.js";
 import ApiError from "../utils/apiError.js";
 import ApiResponse from "../utils/apiResponse.js";
 import { asyncHandler } from "../utils/asyncHandler.js";

@@ -1,13 +1,8 @@
-import { GoogleGenerativeAI } from "@google/generative-ai";
+import Groq from "groq-sdk";
 
-const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || "");
-console.log("env", process.env.GEMINI_API_KEY);
-
-console.log("Key Loaded:", !!process.env.GEMINI_API_KEY);
-console.log("Key Prefix:", process.env.GEMINI_API_KEY?.substring(0, 10));
+const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
 
 export const analyzeEnglishText = async (text) => {
-  const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
   const prompt = `You are an English teacher for Hindi-speaking students.
   Analyze the following English text and return only valid JSON in this format : 
   {
@@ -38,13 +33,17 @@ export const analyzeEnglishText = async (text) => {
   Return ONLY JSON, no extra text.
   `;
 
-  const result = await model.generateContent(prompt);
-  const response = await result.response;
-  const rawText = response.text();
+  const result = await groq.chat.completions.create({
+    messages: [{ role: "user", content: prompt }],
+    model: "llama-3.1-8b-instant",
+    temperature: 0.7,
+  });
+
+  const rawText = result.choices[0].message.content;
 
   const jsonMatch = rawText.match(/\{[\s\S]*\}/);
   if (!jsonMatch) {
-    throw new Error("Invalid response from Gemini");
+    throw new Error("Invalid response from Groq");
   }
 
   return JSON.parse(jsonMatch[0]);

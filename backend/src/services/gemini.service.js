@@ -1,6 +1,10 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
 
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || "");
+console.log("env", process.env.GEMINI_API_KEY);
+
+console.log("Key Loaded:", !!process.env.GEMINI_API_KEY);
+console.log("Key Prefix:", process.env.GEMINI_API_KEY?.substring(0, 10));
 
 export const analyzeEnglishText = async (text) => {
   const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });

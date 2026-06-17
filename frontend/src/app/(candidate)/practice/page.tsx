@@ -12,12 +12,15 @@ import { guidedPrompts, mockFeedback, type PracticeMode } from "./data";
 import { PromptSelector } from "./components/PromptSelector";
 import { PracticeEditor } from "./components/PracticeEditor";
 import { FeedbackPanel } from "./components/FeedbackPanel";
+import { usePractice } from "@/hooks/usePractice";
 
 export default function PracticePage() {
   const [mode, setMode] = useState<PracticeMode>("free");
   const [selectedPromptId, setSelectedPromptId] = useState<number | null>(null);
   const [editorValue, setEditorValue] = useState("");
   const [showFeedback, setShowFeedback] = useState(true);
+
+  const { mutate } = usePractice();
 
   const selectedPrompt = guidedPrompts.find((p) => p.id === selectedPromptId);
 
@@ -28,6 +31,9 @@ export default function PracticePage() {
   };
 
   const handleSubmit = () => {
+    if (mode === "guided" && !selectedPromptId) return;
+    if (editorValue.length < 10) return;
+    mutate({ mode, prompt: "", text: editorValue });
     setShowFeedback(true);
   };
 
@@ -145,8 +151,7 @@ export default function PracticePage() {
           <section className="dashboard-enter flex flex-col gap-5 sm:flex-row sm:items-start sm:justify-between">
             <div>
               <h1 className="text-xl font-semibold tracking-[-0.03em] sm:text-2xl">
-                Practice your{" "}
-                <span className="text-blue-600">English</span>
+                Practice your <span className="text-blue-600">English</span>
               </h1>
               <p className="text-sm text-slate-600">
                 Write freely or choose a guided prompt to practice.

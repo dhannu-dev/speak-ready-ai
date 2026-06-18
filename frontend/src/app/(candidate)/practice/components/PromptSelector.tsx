@@ -8,6 +8,13 @@ type PromptSelectorProps = {
   onSelectPrompt: (id: number) => void;
 };
 
+const categoryStyles: Record<string, { bg: string; text: string; border: string }> = {
+  Personal: { bg: "bg-blue-50", text: "text-blue-600", border: "border-blue-200" },
+  "Daily Life": { bg: "bg-emerald-50", text: "text-emerald-600", border: "border-emerald-200" },
+  Motivation: { bg: "bg-purple-50", text: "text-purple-600", border: "border-purple-200" },
+  Career: { bg: "bg-amber-50", text: "text-amber-600", border: "border-amber-200" },
+};
+
 export function PromptSelector({
   selectedPromptId,
   onSelectPrompt,
@@ -19,56 +26,57 @@ export function PromptSelector({
           <PracticeIcon name="lightbulb" className="h-4 w-4" />
         </span>
         <div>
-          <p className="text-sm font-semibold text-slate-900">
-            Choose a prompt
-          </p>
-          <p className="text-xs text-slate-500">
-            Select a topic to practice with
-          </p>
+          <p className="text-sm font-semibold text-slate-900">Choose Your Quest</p>
+          <p className="text-xs text-slate-500">Select a mission to earn XP</p>
         </div>
       </div>
 
       <div className="grid gap-2 sm:grid-cols-2">
-        {guidedPrompts.map((prompt) => (
-          <button
-            key={prompt.id}
-            onClick={() => onSelectPrompt(prompt.id)}
-            className={`flex items-start gap-3 rounded-xl border p-4 text-left transition-all ${
-              selectedPromptId === prompt.id
-                ? "border-blue-200 bg-blue-50 shadow-sm"
-                : "border-slate-200 bg-white hover:border-slate-300 hover:bg-slate-50"
-            }`}
-          >
-            <span
-              className={`mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-md text-[10px] font-bold ${
-                selectedPromptId === prompt.id
-                  ? "bg-blue-600 text-white"
-                  : "bg-slate-100 text-slate-600"
+        {guidedPrompts.map((prompt) => {
+          const colors = categoryStyles[prompt.category] || categoryStyles.Personal;
+          const isSelected = selectedPromptId === prompt.id;
+
+          return (
+            <button
+              key={prompt.id}
+              onClick={() => onSelectPrompt(prompt.id)}
+              className={`flex items-start gap-3 rounded-xl border p-4 text-left transition-all ${
+                isSelected
+                  ? "border-blue-200 bg-blue-50 shadow-sm"
+                  : "border-slate-200 bg-white hover:border-slate-300 hover:bg-slate-50"
               }`}
             >
-              {prompt.id}
-            </span>
-            <div className="min-w-0 flex-1">
-              <p
-                className={`text-sm font-medium ${
-                  selectedPromptId === prompt.id
-                    ? "text-blue-900"
-                    : "text-slate-900"
+              <span
+                className={`mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-md text-[10px] font-bold ${
+                  isSelected
+                    ? "bg-blue-600 text-white"
+                    : `${colors.bg} ${colors.text}`
                 }`}
               >
-                {prompt.title}
-              </p>
-              <div className="mt-1.5 flex items-center gap-2">
-                <span className="rounded-md bg-slate-100 px-2 py-0.5 text-[10px] font-medium text-slate-600">
-                  {prompt.category}
-                </span>
-                <span className="text-[10px] text-slate-400">
-                  {prompt.time}
-                </span>
+                {prompt.id}
+              </span>
+              <div className="min-w-0 flex-1">
+                <p
+                  className={`text-sm font-medium ${
+                    isSelected ? "text-blue-900" : "text-slate-900"
+                  }`}
+                >
+                  {prompt.title}
+                </p>
+                <div className="mt-1.5 flex items-center gap-2">
+                  <span
+                    className={`rounded-md px-2 py-0.5 text-[10px] font-medium ${colors.bg} ${colors.text}`}
+                  >
+                    {prompt.category}
+                  </span>
+                  <span className="text-[10px] text-slate-400">
+                    ⏱ {prompt.time}
+                  </span>
+                </div>
               </div>
-            </div>
-          </button>
-        ))}
+            </button>
+          );
+        })}
       </div>
     </div>
   );

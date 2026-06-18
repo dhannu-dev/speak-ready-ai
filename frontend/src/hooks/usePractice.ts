@@ -1,15 +1,19 @@
 import { practiceAPI } from "@/lib/api";
 import { useMutation } from "@tanstack/react-query";
+import { toast } from "sonner";
 
 export const usePractice = () => {
   return useMutation({
     mutationFn: practiceAPI,
-    onSuccess: (data) => {
-      alert("your response send successfully");
+    onSuccess: () => {
+      toast.success("Response submitted!", {
+        description: "Your practice has been analyzed. Check your feedback!",
+      });
     },
-
     onError: () => {
-      console.log("error");
+      toast.error("Submission failed", {
+        description: "Something went wrong. Please try again.",
+      });
     },
   });
 };

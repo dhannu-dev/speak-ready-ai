@@ -1,4 +1,3 @@
-import { Badge } from "@/components/ui/badge";
 import { PracticeIcon } from "../data";
 import { ScoreCard } from "./ScoreCard";
 import { MistakeList } from "./MistakeList";
@@ -29,18 +28,25 @@ type FeedbackPanelProps = {
 };
 
 export function FeedbackPanel({ feedback, onReset }: FeedbackPanelProps) {
+  const overallScore = feedback.scores.overall;
+  const getRankEmoji = (score: number) => {
+    if (score >= 9) return "🏆";
+    if (score >= 8) return "🥇";
+    if (score >= 7) return "🥈";
+    if (score >= 6) return "🥉";
+    return "💪";
+  };
+
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-emerald-50 text-emerald-600">
-            <PracticeIcon name="sparkle" className="h-4 w-4" />
+          <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-emerald-50 text-lg">
+            {getRankEmoji(overallScore)}
           </span>
           <div>
-            <p className="text-sm font-semibold text-slate-900">
-              Feedback Report
-            </p>
-            <p className="text-xs text-slate-500">AI-powered analysis</p>
+            <p className="text-sm font-semibold text-slate-900">Mission Complete!</p>
+            <p className="text-xs text-slate-500">Your battle report is ready</p>
           </div>
         </div>
         <button
@@ -48,7 +54,7 @@ export function FeedbackPanel({ feedback, onReset }: FeedbackPanelProps) {
           className="inline-flex h-9 items-center gap-2 rounded-lg border border-slate-200 bg-white px-3 text-xs font-medium text-slate-700 transition-colors hover:bg-slate-50"
         >
           <PracticeIcon name="refresh" className="h-3.5 w-3.5" />
-          Practice again
+          New Quest
         </button>
       </div>
 
@@ -59,8 +65,8 @@ export function FeedbackPanel({ feedback, onReset }: FeedbackPanelProps) {
       />
 
       <div className="rounded-xl border border-slate-200 bg-white p-5">
-        <h3 className="text-sm font-semibold text-slate-900">
-          Corrected English
+        <h3 className="text-sm font-semibold text-slate-900 flex items-center gap-2">
+          <span>📝</span> Corrected English
         </h3>
         <p className="mt-3 text-sm leading-7 text-slate-700">
           {feedback.correctedText}
@@ -86,7 +92,9 @@ export function FeedbackPanel({ feedback, onReset }: FeedbackPanelProps) {
       <MistakeList mistakes={feedback.mistakes} />
 
       <div className="rounded-xl border border-slate-200 bg-white p-5">
-        <h3 className="text-sm font-semibold text-slate-900">Weak Areas</h3>
+        <h3 className="text-sm font-semibold text-slate-900 flex items-center gap-2">
+          <span>🎯</span> Weak Areas
+        </h3>
         <ul className="mt-3 space-y-2">
           {feedback.weakAreas.map((area, index) => (
             <li key={index} className="flex items-start gap-2">
@@ -98,13 +106,13 @@ export function FeedbackPanel({ feedback, onReset }: FeedbackPanelProps) {
       </div>
 
       <div className="rounded-xl border border-slate-200 bg-white p-5">
-        <h3 className="text-sm font-semibold text-slate-900">
-          Personalized Exercises
+        <h3 className="text-sm font-semibold text-slate-900 flex items-center gap-2">
+          <span>🎮</span> Training Exercises
         </h3>
         <ul className="mt-3 space-y-2">
           {feedback.personalizedExercises.map((exercise, index) => (
             <li key={index} className="flex items-start gap-2">
-              <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-md bg-blue-50 text-[10px] font-bold text-blue-600">
+              <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-md bg-purple-50 text-[10px] font-bold text-purple-600">
                 {index + 1}
               </span>
               <span className="text-xs leading-5 text-slate-600">

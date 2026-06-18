@@ -15,6 +15,9 @@ export function PracticeEditor({
   selectedPromptTitle,
   isGuided,
 }: PracticeEditorProps) {
+  const charCount = value.length;
+  const progress = Math.min((charCount / 200) * 100, 100);
+
   return (
     <div className="space-y-3">
       {isGuided && selectedPromptTitle && (
@@ -25,7 +28,7 @@ export function PracticeEditor({
             </span>
             <div>
               <p className="text-[10px] font-semibold uppercase tracking-[0.06em] text-amber-600">
-                Your prompt
+                Active Quest
               </p>
               <p className="mt-1 text-sm font-medium text-amber-900">
                 {selectedPromptTitle}
@@ -47,15 +50,23 @@ export function PracticeEditor({
           className="h-64 w-full resize-none rounded-xl border border-slate-200 bg-white p-5 text-sm leading-7 text-slate-900 placeholder:text-slate-400 focus:border-blue-300 focus:outline-none focus:ring-4 focus:ring-blue-500/10 sm:h-80"
         />
 
-        <div className="absolute bottom-3 right-3 flex items-center gap-2">
+        <div className="absolute bottom-3 right-3 flex items-center gap-3">
+          <div className="h-1.5 w-20 overflow-hidden rounded-full bg-slate-100">
+            <div
+              className="h-full rounded-full bg-gradient-to-r from-blue-400 to-blue-600 transition-all duration-300"
+              style={{ width: `${progress}%` }}
+            />
+          </div>
           <span
             className={`rounded-md px-2 py-1 text-[10px] font-medium ${
-              value.length > 0
-                ? "bg-blue-50 text-blue-600"
-                : "bg-slate-100 text-slate-400"
+              charCount >= 10
+                ? "bg-emerald-50 text-emerald-600"
+                : charCount > 0
+                  ? "bg-amber-50 text-amber-600"
+                  : "bg-slate-100 text-slate-400"
             }`}
           >
-            {value.length} characters
+            {charCount} characters
           </span>
         </div>
       </div>

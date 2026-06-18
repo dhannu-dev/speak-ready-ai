@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { toast } from "sonner";
 
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
@@ -18,10 +19,9 @@ export default function PracticePage() {
   const [mode, setMode] = useState<PracticeMode>("free");
   const [selectedPromptId, setSelectedPromptId] = useState<number | null>(null);
   const [editorValue, setEditorValue] = useState("");
-  const [showFeedback, setShowFeedback] = useState(true);
+  const [showFeedback, setShowFeedback] = useState(false);
 
-  const { mutate, data } = usePractice();
-  console.log("data", data);
+  const { mutate, data, isPending } = usePractice();
 
   const selectedPrompt = guidedPrompts.find((p) => p.id === selectedPromptId);
 
@@ -32,10 +32,23 @@ export default function PracticePage() {
   };
 
   const handleSubmit = () => {
-    if (mode === "guided" && !selectedPromptId) return;
-    if (editorValue.length < 10) return;
+    if (mode === "guided" && !selectedPromptId) {
+      toast.warning("Select a quest first!", {
+        description: "Pick a prompt before submitting your answer.",
+      });
+      return;
+    }
+    if (editorValue.length < 10) {
+      toast.warning("Write more!", {
+        description: "At least 10 characters needed to analyze your practice.",
+      });
+      return;
+    }
     mutate({ mode, prompt: "", text: editorValue });
     setShowFeedback(true);
+    toast("Submitting your answer...", {
+      description: "Analyzing your English skills!",
+    });
   };
 
   return (
@@ -51,10 +64,7 @@ export default function PracticePage() {
           </div>
         </div>
 
-        <nav
-          className="flex-1 space-y-1 px-4 py-5"
-          aria-label="Main navigation"
-        >
+        <nav className="flex-1 space-y-1 px-4 py-5" aria-label="Main navigation">
           {navigationItems.map((item) => (
             <Link
               key={item.label}
@@ -120,10 +130,17 @@ export default function PracticePage() {
                   <path d="m15 18-6-6 6-6" />
                 </svg>
               </Link>
-              <p className="text-sm font-semibold sm:text-base">Practice</p>
+              <div className="flex items-center gap-2">
+                <span className="text-xl">⚔️</span>
+                <p className="text-sm font-semibold sm:text-base">Practice Arena</p>
+              </div>
             </div>
 
             <div className="flex items-center gap-2 sm:gap-4">
+              <div className="hidden items-center gap-2 rounded-full bg-amber-50 px-3 py-1.5 sm:flex border border-amber-200">
+                <span className="text-xs">🔥</span>
+                <span className="text-xs font-bold text-amber-600">7 day streak</span>
+              </div>
               <Button
                 variant="ghost"
                 size="icon"
@@ -133,17 +150,6 @@ export default function PracticePage() {
                 <DashboardIcon name="bell" className="h-4.75 w-4.75" />
                 <span className="absolute right-2 top-2 h-2 w-2 rounded-full border-2 border-white bg-blue-600" />
               </Button>
-
-              <div className="hidden h-8 w-px bg-slate-200 sm:block" />
-
-              <Button
-                variant="ghost"
-                size="icon"
-                className="h-10 w-10 rounded-full text-slate-600 lg:hidden"
-                aria-label="Log out"
-              >
-                <DashboardIcon name="logout" className="h-4.5 w-4.5" />
-              </Button>
             </div>
           </div>
         </header>
@@ -152,10 +158,12 @@ export default function PracticePage() {
           <section className="dashboard-enter flex flex-col gap-5 sm:flex-row sm:items-start sm:justify-between">
             <div>
               <h1 className="text-xl font-semibold tracking-[-0.03em] sm:text-2xl">
-                Practice your <span className="text-blue-600">English</span>
+                Welcome back,{" "}
+                <span className="text-blue-600">Rahul</span>{" "}
+                <span className="text-2xl">🎮</span>
               </h1>
-              <p className="text-sm text-slate-600">
-                Write freely or choose a guided prompt to practice.
+              <p className="mt-1 text-sm text-slate-600">
+                Choose your mission and level up your English!
               </p>
             </div>
 
@@ -168,7 +176,7 @@ export default function PracticePage() {
                     : "bg-white text-slate-600 border border-slate-200 hover:bg-slate-50"
                 }`}
               >
-                Free writing
+                🎯 Free Mode
               </button>
               <button
                 onClick={() => setMode("guided")}
@@ -178,7 +186,7 @@ export default function PracticePage() {
                     : "bg-white text-slate-600 border border-slate-200 hover:bg-slate-50"
                 }`}
               >
-                Guided prompt
+                📜 Quest Mode
               </button>
             </div>
           </section>
@@ -205,16 +213,24 @@ export default function PracticePage() {
                 <div className="mt-4 flex items-center justify-between">
                   <p className="text-xs text-slate-500">
                     {mode === "guided"
-                      ? "Write your answer to the selected prompt"
-                      : "Write anything to practice your English"}
+                      ? "Complete the quest to earn XP"
+                      : "Write freely to practice your skills"}
                   </p>
                   <Button
                     onClick={handleSubmit}
-                    disabled={editorValue.length === 0}
+                    disabled={isPending}
                     className="inline-flex h-10 items-center gap-2 rounded-lg bg-blue-600 px-5 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-blue-700 disabled:opacity-50"
                   >
-                    Get feedback
-                    <DashboardIcon name="arrow" className="h-4 w-4" />
+                    {isPending ? (
+                      <>
+                        <span className="h-4 w-4 animate-spin rounded-full border-2 border-white/30 border-t-white" />
+                        Analyzing...
+                      </>
+                    ) : (
+                      <>
+                        ⚡ Get Feedback
+                      </>
+                    )}
                   </Button>
                 </div>
               </div>
@@ -225,16 +241,19 @@ export default function PracticePage() {
                 <FeedbackPanel feedback={data?.data?.feedback || mockFeedback} onReset={handleReset} />
               ) : (
                 <div className="flex flex-col items-center justify-center py-16 text-center">
-                  <span className="flex h-16 w-16 items-center justify-center rounded-2xl bg-blue-50 text-blue-600">
-                    <DashboardIcon name="panel" className="h-8 w-8" />
+                  <span className="flex h-16 w-16 items-center justify-center rounded-2xl bg-blue-50 text-4xl">
+                    🏆
                   </span>
                   <p className="mt-5 text-sm font-semibold text-slate-900">
                     No feedback yet
                   </p>
                   <p className="mt-1.5 max-w-52 text-xs leading-5 text-slate-500">
-                    Write your answer and submit to get AI-powered feedback on
-                    your English.
+                    Complete a practice session to unlock your AI-powered feedback report!
                   </p>
+                  <div className="mt-4 flex items-center gap-1 rounded-full bg-blue-50 px-3 py-1">
+                    <span className="text-xs">💡</span>
+                    <span className="text-[10px] font-medium text-blue-600">Tip: Write at least 10 characters</span>
+                  </div>
                 </div>
               )}
             </div>

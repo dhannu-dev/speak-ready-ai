@@ -51,6 +51,8 @@ export default function PracticePage() {
     });
   };
 
+  
+
   return (
     <div className="min-h-screen bg-[#f5f6f8] text-slate-950">
       <aside className="fixed inset-y-0 left-0 z-30 hidden w-55 flex-col border-r border-slate-200 bg-white lg:flex">

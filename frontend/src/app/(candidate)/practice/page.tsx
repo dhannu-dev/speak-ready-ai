@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import Link from "next/link";
 import { toast } from "sonner";
 
@@ -20,6 +20,8 @@ export default function PracticePage() {
   const [selectedPromptId, setSelectedPromptId] = useState<number | null>(null);
   const [editorValue, setEditorValue] = useState("");
   const [showFeedback, setShowFeedback] = useState(false);
+  const recoginationRef = useRef<any>(null);
+  const [isListining, setIsListining] = useState(false);
 
   const { mutate, data, isPending } = usePractice();
 
@@ -49,6 +51,37 @@ export default function PracticePage() {
     toast("Submitting your answer...", {
       description: "Analyzing your English skills!",
     });
+  };
+
+  const handleMic = () => {
+    const SpeechRecognition =
+      (window as any).SpeechRecognition ||
+      (window as any).webkitSpeechRecognition;
+
+    if (!recoginationRef.current) {
+      const recognition = new SpeechRecognition();
+      recognition.continuous = true;
+      recognition.lang = "en-US";
+      recognition.interimResults = false;
+      recognition.maxAlternatives = 1;
+
+      recognition.onresult = (event: any) => {
+        const text = event.results[0][0].transcript;
+        setEditorValue(text);
+      };
+
+      recoginationRef.current = recognition;
+    }
+
+    if (isListining) {
+      recoginationRef.current.stop();
+      setIsListining(false);
+      console.log("mic stope");
+    } else {
+      recoginationRef.current.start();
+      setIsListining(true);
+      console.log("Mic Started");
+    }
   };
 
   return (
@@ -210,6 +243,7 @@ export default function PracticePage() {
 
               <div className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
                 <PracticeEditor
+                  handleMic = {handleMic}
                   value={editorValue}
                   onChange={setEditorValue}
                   selectedPromptTitle={selectedPrompt?.title ?? null}

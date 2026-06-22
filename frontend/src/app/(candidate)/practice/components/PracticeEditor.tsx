@@ -1,5 +1,6 @@
 "use client";
 
+import { Button } from "@/components/ui/button";
 import { PracticeIcon } from "../data";
 
 type PracticeEditorProps = {
@@ -7,6 +8,7 @@ type PracticeEditorProps = {
   onChange: (value: string) => void;
   selectedPromptTitle: string | null;
   isGuided: boolean;
+  handleMic: () => void;
 };
 
 export function PracticeEditor({
@@ -14,6 +16,7 @@ export function PracticeEditor({
   onChange,
   selectedPromptTitle,
   isGuided,
+  handleMic,
 }: PracticeEditorProps) {
   const charCount = value.length;
   const progress = Math.min((charCount / 200) * 100, 100);
@@ -53,9 +56,12 @@ export function PracticeEditor({
         <div className="absolute bottom-3 right-3 flex items-center gap-3">
           <div className="h-1.5 w-20 overflow-hidden rounded-full bg-slate-100">
             <div
-              className="h-full rounded-full bg-gradient-to-r from-blue-400 to-blue-600 transition-all duration-300"
+              className="h-full rounded-full bg-linear-to-r from-blue-400 to-blue-600 transition-all duration-300"
               style={{ width: `${progress}%` }}
             />
+          </div>
+          <div>
+            <Button onClick={handleMic}>🎙️</Button>
           </div>
           <span
             className={`rounded-md px-2 py-1 text-[10px] font-medium ${

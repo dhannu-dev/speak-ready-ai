@@ -51,8 +51,6 @@ export default function PracticePage() {
     });
   };
 
-  
-
   return (
     <div className="min-h-screen bg-[#f5f6f8] text-slate-950">
       <aside className="fixed inset-y-0 left-0 z-30 hidden w-55 flex-col border-r border-slate-200 bg-white lg:flex">
@@ -66,7 +64,10 @@ export default function PracticePage() {
           </div>
         </div>
 
-        <nav className="flex-1 space-y-1 px-4 py-5" aria-label="Main navigation">
+        <nav
+          className="flex-1 space-y-1 px-4 py-5"
+          aria-label="Main navigation"
+        >
           {navigationItems.map((item) => (
             <Link
               key={item.label}
@@ -134,14 +135,18 @@ export default function PracticePage() {
               </Link>
               <div className="flex items-center gap-2">
                 <span className="text-xl">⚔️</span>
-                <p className="text-sm font-semibold sm:text-base">Practice Arena</p>
+                <p className="text-sm font-semibold sm:text-base">
+                  Practice Arena
+                </p>
               </div>
             </div>
 
             <div className="flex items-center gap-2 sm:gap-4">
               <div className="hidden items-center gap-2 rounded-full bg-amber-50 px-3 py-1.5 sm:flex border border-amber-200">
                 <span className="text-xs">🔥</span>
-                <span className="text-xs font-bold text-amber-600">7 day streak</span>
+                <span className="text-xs font-bold text-amber-600">
+                  7 day streak
+                </span>
               </div>
               <Button
                 variant="ghost"
@@ -160,8 +165,7 @@ export default function PracticePage() {
           <section className="dashboard-enter flex flex-col gap-5 sm:flex-row sm:items-start sm:justify-between">
             <div>
               <h1 className="text-xl font-semibold tracking-[-0.03em] sm:text-2xl">
-                Welcome back,{" "}
-                <span className="text-blue-600">Rahul</span>{" "}
+                Welcome back, <span className="text-blue-600">Rahul</span>{" "}
                 <span className="text-2xl">🎮</span>
               </h1>
               <p className="mt-1 text-sm text-slate-600">
@@ -229,9 +233,7 @@ export default function PracticePage() {
                         Analyzing...
                       </>
                     ) : (
-                      <>
-                        ⚡ Get Feedback
-                      </>
+                      <>⚡ Get Feedback</>
                     )}
                   </Button>
                 </div>
@@ -240,7 +242,10 @@ export default function PracticePage() {
 
             <div className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
               {showFeedback ? (
-                <FeedbackPanel feedback={data?.data?.feedback || mockFeedback} onReset={handleReset} />
+                <FeedbackPanel
+                  feedback={data?.data?.feedback || mockFeedback}
+                  onReset={handleReset}
+                />
               ) : (
                 <div className="flex flex-col items-center justify-center py-16 text-center">
                   <span className="flex h-16 w-16 items-center justify-center rounded-2xl bg-blue-50 text-4xl">
@@ -250,11 +255,14 @@ export default function PracticePage() {
                     No feedback yet
                   </p>
                   <p className="mt-1.5 max-w-52 text-xs leading-5 text-slate-500">
-                    Complete a practice session to unlock your AI-powered feedback report!
+                    Complete a practice session to unlock your AI-powered
+                    feedback report!
                   </p>
                   <div className="mt-4 flex items-center gap-1 rounded-full bg-blue-50 px-3 py-1">
                     <span className="text-xs">💡</span>
-                    <span className="text-[10px] font-medium text-blue-600">Tip: Write at least 10 characters</span>
+                    <span className="text-[10px] font-medium text-blue-600">
+                      Tip: Write at least 10 characters
+                    </span>
                   </div>
                 </div>
               )}

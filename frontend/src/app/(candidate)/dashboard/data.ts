@@ -8,6 +8,7 @@ export const navigationItems: {
 }[] = [
   { label: "Dashboard", href: "/dashboard", icon: "dashboard", active: true },
   { label: "Practice", href: "/practice", icon: "practice" },
+  { label: "Interview", href: "/interview", icon: "interview" },
   { label: "History", href: "/history", icon: "history" },
 ];
 

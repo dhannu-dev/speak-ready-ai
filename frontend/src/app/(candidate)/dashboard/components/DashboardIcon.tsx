@@ -8,6 +8,7 @@ export type DashboardIconName =
   | "dashboard"
   | "document"
   | "history"
+  | "interview"
   | "logout"
   | "message"
   | "panel"
@@ -44,6 +45,14 @@ export function DashboardIcon({
       <>
         <path d="M3 12a9 9 0 1 0 3-6.7L3 8" />
         <path d="M3 3v5h5M12 7v5l3 2" />
+      </>
+    ),
+    interview: (
+      <>
+        <rect x="2" y="7" width="20" height="14" rx="2" />
+        <path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2" />
+        <path d="M12 12a1 1 0 1 0 0-2 1 1 0 0 0 0 2Z" fill="currentColor" stroke="none" />
+        <path d="M8 21v-1a4 4 0 0 1 8 0v1" />
       </>
     ),
     panel: (

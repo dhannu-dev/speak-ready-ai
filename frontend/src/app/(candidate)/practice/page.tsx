@@ -22,6 +22,9 @@ export default function PracticePage() {
   const [showFeedback, setShowFeedback] = useState(false);
   const recoginationRef = useRef<any>(null);
   const [isListining, setIsListining] = useState(false);
+  const [recordingTime, setRecordingTime] = useState(0);
+  const [liveTranscript, setLiveTranscript] = useState("");
+  const timerRef = useRef<any>(null);
 
   const { mutate, data, isPending } = usePractice();
 
@@ -62,12 +65,40 @@ export default function PracticePage() {
       const recognition = new SpeechRecognition();
       recognition.continuous = true;
       recognition.lang = "en-US";
-      recognition.interimResults = false;
+      recognition.interimResults = true;
       recognition.maxAlternatives = 1;
 
       recognition.onresult = (event: any) => {
-        const text = event.results[0][0].transcript;
-        setEditorValue(text);
+        let interimText = "";
+        let finalText = "";
+        for (let i = event.resultIndex; i < event.results.length; i++) {
+          const transcript = event.results[i][0].transcript;
+          if (event.results[i].isFinal) {
+            finalText += transcript;
+          } else {
+            interimText += transcript;
+          }
+        }
+        if (finalText) {
+          setEditorValue((prev) => (prev ? prev + " " + finalText : finalText));
+          setLiveTranscript("");
+        } else {
+          setLiveTranscript(interimText);
+        }
+      };
+
+      recognition.onerror = () => {
+        setIsListining(false);
+        clearInterval(timerRef.current);
+        setRecordingTime(0);
+        setLiveTranscript("");
+      };
+
+      recognition.onend = () => {
+        setIsListining(false);
+        clearInterval(timerRef.current);
+        setRecordingTime(0);
+        setLiveTranscript("");
       };
 
       recoginationRef.current = recognition;
@@ -76,11 +107,17 @@ export default function PracticePage() {
     if (isListining) {
       recoginationRef.current.stop();
       setIsListining(false);
-      console.log("mic stope");
+      clearInterval(timerRef.current);
+      setRecordingTime(0);
+      setLiveTranscript("");
     } else {
+      setEditorValue("");
       recoginationRef.current.start();
       setIsListining(true);
-      console.log("Mic Started");
+      setRecordingTime(0);
+      timerRef.current = setInterval(() => {
+        setRecordingTime((prev) => prev + 1);
+      }, 1000);
     }
   };
 
@@ -248,6 +285,9 @@ export default function PracticePage() {
                   onChange={setEditorValue}
                   selectedPromptTitle={selectedPrompt?.title ?? null}
                   isGuided={mode === "guided"}
+                  isListening={isListining}
+                  recordingTime={recordingTime}
+                  liveTranscript={liveTranscript}
                 />
 
                 <div className="mt-4 flex items-center justify-between">

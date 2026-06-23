@@ -123,7 +123,7 @@ export function FeedbackPanel({ feedback, onReset }: FeedbackPanelProps) {
         </ul>
       </div>
 
-      <div className="rounded-xl border border-emerald-200 bg-emerald-50 p-5">
+      {/* <div className="rounded-xl border border-emerald-200 bg-emerald-50 p-5">
         <div className="flex items-start gap-3">
           <span className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-emerald-100 text-emerald-600">
             <PracticeIcon name="trophy" className="h-3.5 w-3.5" />
@@ -137,7 +137,7 @@ export function FeedbackPanel({ feedback, onReset }: FeedbackPanelProps) {
             </p>
           </div>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 }

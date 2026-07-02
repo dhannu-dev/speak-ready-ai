@@ -1,5 +1,49 @@
 import type { DashboardIconName } from "../dashboard/components/DashboardIcon";
 
+export const userLevels = ["Beginner", "Intermediate", "Advanced"] as const;
+export type UserLevel = (typeof userLevels)[number];
+
+export const conversationTopics = [
+  { id: 1, name: "Travel & Holidays", icon: "✈️" },
+  { id: 2, name: "Work & Career", icon: "💼" },
+  { id: 3, name: "Food & Restaurants", icon: "🍔" },
+  { id: 4, name: "Movies & Hobbies", icon: "🎬" },
+  { id: 5, name: "Daily Life", icon: "☀️" },
+  { id: 6, name: "Free Talk", icon: "💬" },
+];
+
+export type ChatMessageType = {
+  id: number;
+  role: "tutor" | "user" | "suggestion";
+  content: string;
+  correction?: string;
+  explanation?: string;
+};
+
+export const mockChatMessages: ChatMessageType[] = [
+  {
+    id: 1,
+    role: "tutor",
+    content: "Hi! I'm your English speaking partner today. Let's talk about travel — what's the most memorable trip you've ever taken?",
+  },
+  {
+    id: 2,
+    role: "user",
+    content: "I go to Japan last year and it was very amazing experience for me.",
+  },
+  {
+    id: 3,
+    role: "suggestion",
+    content: "Try: \"I went to Japan last year and it was an amazing experience.\"",
+    correction: "Use past tense \"went\" instead of \"go\", and add \"an\" before \"amazing\".",
+  },
+  {
+    id: 4,
+    role: "tutor",
+    content: "That sounds wonderful! Japan is on many people's bucket list. Which city did you enjoy the most?",
+  },
+];
+
 export const guidedPrompts = [
   {
     id: 1,
